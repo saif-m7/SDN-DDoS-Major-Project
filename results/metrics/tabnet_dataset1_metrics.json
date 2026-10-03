@@ -1,0 +1,44 @@
+{
+    "dataset": "Dataset 1",
+    "model": "TabNet",
+    "num_features": 19,
+    "features": [
+        "switch",
+        "pktcount",
+        "bytecount",
+        "dur",
+        "dur_nsec",
+        "tot_dur",
+        "flows",
+        "packetins",
+        "pktperflow",
+        "byteperflow",
+        "pktrate",
+        "Pairflow",
+        "Protocol",
+        "port_no",
+        "tx_bytes",
+        "rx_bytes",
+        "tx_kbps",
+        "rx_kbps",
+        "tot_kbps"
+    ],
+    "evaluation_type": "random stratified split",
+    "max_epochs": 30,
+    "batch_size": 512,
+    "accuracy": 0.9629928134864665,
+    "precision": 0.9385217983651226,
+    "recall": 0.9666725135941063,
+    "f1_score": 0.9523891817160632,
+    "false_positive_rate": 0.039290378754897694,
+    "confusion_matrix": [
+        [
+            8827,
+            361
+        ],
+        [
+            190,
+            5511
+        ]
+    ]
+}

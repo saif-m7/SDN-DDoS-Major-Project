@@ -1,0 +1,8 @@
+{
+    "0": "DDOS_ICMP",
+    "1": "DDOS_TCP",
+    "2": "DDOS_UDP",
+    "3": "NORMAL_ICMP",
+    "4": "NORMAL_TCP",
+    "5": "NORMAL_UDP"
+}

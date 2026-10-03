@@ -1,0 +1,7 @@
+experiment,num_features,accuracy
+All 10 Features,10,1.0
+Without TTL,9,0.8333333333333334
+"Without TTL, DST_PORT, CODE_ICMP",7,0.6666666666666666
+Traffic/Header Core Features,6,0.6666666666666666
+Traffic Features Only,3,0.6666666666666666
+Protocol Only,1,0.5

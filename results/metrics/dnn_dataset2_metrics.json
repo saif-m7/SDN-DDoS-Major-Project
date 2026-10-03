@@ -1,0 +1,89 @@
+{
+    "dataset": "Dataset 2",
+    "task": "Six-Class Traffic and DDoS Classification",
+    "model": "DNN",
+    "input_features": [
+        "total_length",
+        "ttl",
+        "proto",
+        "csum",
+        "src_port",
+        "dst_port",
+        "tcp_flag",
+        "type_icmp",
+        "code_icmp",
+        "tx_bytes_ave"
+    ],
+    "num_input_features": 10,
+    "accuracy": 1.0,
+    "precision_weighted": 1.0,
+    "recall_weighted": 1.0,
+    "f1_score_weighted": 1.0,
+    "false_positive_rate_macro": 0.0,
+    "false_positive_rate_per_class": {
+        "DDOS_ICMP": 0.0,
+        "DDOS_TCP": 0.0,
+        "DDOS_UDP": 0.0,
+        "NORMAL_ICMP": 0.0,
+        "NORMAL_TCP": 0.0,
+        "NORMAL_UDP": 0.0
+    },
+    "classes": [
+        "DDOS_ICMP",
+        "DDOS_TCP",
+        "DDOS_UDP",
+        "NORMAL_ICMP",
+        "NORMAL_TCP",
+        "NORMAL_UDP"
+    ],
+    "confusion_matrix": [
+        [
+            30000,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            30000,
+            0,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            30000,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            30000,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            0,
+            30000,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            0,
+            0,
+            30000
+        ]
+    ]
+}

@@ -1,0 +1,92 @@
+{
+    "dataset": "Dataset 2",
+    "model": "TabNet",
+    "num_features": 10,
+    "features": [
+        "total_length",
+        "ttl",
+        "proto",
+        "csum",
+        "src_port",
+        "dst_port",
+        "tcp_flag",
+        "type_icmp",
+        "code_icmp",
+        "tx_bytes_ave"
+    ],
+    "num_classes": 6,
+    "evaluation_type": "supplied test split",
+    "max_epochs": 30,
+    "batch_size": 512,
+    "accuracy": 1.0,
+    "weighted_precision": 1.0,
+    "weighted_recall": 1.0,
+    "weighted_f1_score": 1.0,
+    "macro_false_positive_rate": 0.0,
+    "per_class_false_positive_rate": {
+        "DDOS_ICMP": 0.0,
+        "DDOS_TCP": 0.0,
+        "DDOS_UDP": 0.0,
+        "NORMAL_ICMP": 0.0,
+        "NORMAL_TCP": 0.0,
+        "NORMAL_UDP": 0.0
+    },
+    "confusion_matrix": [
+        [
+            30000,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            30000,
+            0,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            30000,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            30000,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            0,
+            30000,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            0,
+            0,
+            30000
+        ]
+    ],
+    "label_mapping": {
+        "0": "DDOS_ICMP",
+        "1": "DDOS_TCP",
+        "2": "DDOS_UDP",
+        "3": "NORMAL_ICMP",
+        "4": "NORMAL_TCP",
+        "5": "NORMAL_UDP"
+    }
+}

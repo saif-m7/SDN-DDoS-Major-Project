@@ -1,320 +1,537 @@
 import os
 import pandas as pd
+import numpy as np
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
 
 # ============================================================
-# DATASET 1 PREPROCESSING
+# CONFIGURATION
 # ============================================================
 
-# ------------------------------------------------------------
-# 1. Paths
-# ------------------------------------------------------------
+RANDOM_SEED = 42
+
+RAW_PATH = "data/raw/dataset1/dataset_sdn.csv"
+OUTPUT_DIR = "data/processed/dataset1"
+
+TRAIN_PATH = os.path.join(OUTPUT_DIR, "train.csv")
+VAL_PATH = os.path.join(OUTPUT_DIR, "validation.csv")
+TEST_PATH = os.path.join(OUTPUT_DIR, "test.csv")
+
+
+# ============================================================
+# MAIN PREPROCESSING FUNCTION
+# ============================================================
+
+def preprocess_dataset1():
 
-RAW_DATA_PATH = (
-    r"C:\PROJECTS\SDN-DDOS-Major-Project"
-    r"\data\raw\dataset1\SDN-DDoS_Traffic_Dataset.csv"
-)
+    print("=" * 70)
+    print("DATASET 1 PREPROCESSING")
+    print("=" * 70)
 
-PROCESSED_DIR = (
-    r"C:\PROJECTS\SDN-DDOS-Major-Project"
-    r"\data\processed\dataset1"
-)
+    # --------------------------------------------------------
+    # 1. LOAD RAW DATA
+    # --------------------------------------------------------
 
-os.makedirs(PROCESSED_DIR, exist_ok=True)
+    print("\nLoading raw Dataset 1...")
 
+    df = pd.read_csv(RAW_PATH)
 
-# ------------------------------------------------------------
-# 2. Features selected for the project
-# ------------------------------------------------------------
+    print(f"Raw dataset shape: {df.shape}")
 
-FEATURE_COLUMNS = [
-    "switch",
-    "host",
-    "pkt_count",
-    "byte_count",
-    "duration",
-    "duration_nsec",
-    "tot_duration",
-    "flows",
-    "packet_per_massg",
-    "pktper_flow",
-    "pair_flow",
-    "Protocol",
-    "port_no",
-    "tx_bytes",
-    "rx_bytes",
-    "tx_kbps",
-    "rx_kbps",
-    "tot_kbps",
-    "delay",
-    "jitter",
-    "packet_loss_rate"
-]
+    # --------------------------------------------------------
+    # 2. BASIC INFORMATION
+    # --------------------------------------------------------
 
-TARGET_COLUMN = "label"
+    print("\nOriginal columns:")
+    print(df.columns.tolist())
 
+    print("\nOriginal label distribution:")
+    print(df["label"].value_counts())
+    print(df["label"].value_counts(normalize=True))
 
-# ------------------------------------------------------------
-# 3. Load dataset
-# ------------------------------------------------------------
+    # --------------------------------------------------------
+    # 3. CHECK REQUIRED COLUMNS
+    # --------------------------------------------------------
 
-print("=" * 70)
-print("LOADING DATASET 1")
-print("=" * 70)
+    required_columns = [
+        "switch",
+        "pktcount",
+        "bytecount",
+        "dur",
+        "dur_nsec",
+        "tot_dur",
+        "flows",
+        "packetins",
+        "pktperflow",
+        "byteperflow",
+        "pktrate",
+        "Pairflow",
+        "Protocol",
+        "port_no",
+        "tx_bytes",
+        "rx_bytes",
+        "tx_kbps",
+        "rx_kbps",
+        "tot_kbps",
+        "dt",
+        "src",
+        "dst",
+        "label"
+    ]
 
-df = pd.read_csv(RAW_DATA_PATH)
-
-print(f"Original shape: {df.shape}")
-
-
-# ------------------------------------------------------------
-# 4. Select required columns
-# ------------------------------------------------------------
-
-print("\n" + "=" * 70)
-print("SELECTING FEATURES")
-print("=" * 70)
-
-df = df[FEATURE_COLUMNS + [TARGET_COLUMN]]
-
-print(f"Shape after feature selection: {df.shape}")
-
-print("\nSelected features:")
-for feature in FEATURE_COLUMNS:
-    print(f" - {feature}")
-
-
-# ------------------------------------------------------------
-# 5. Check missing and infinite values
-# ------------------------------------------------------------
-
-print("\n" + "=" * 70)
-print("DATA QUALITY CHECK")
-print("=" * 70)
-
-missing_values = df.isnull().sum().sum()
-
-print(f"Total missing values: {missing_values}")
-
-numeric_columns = df.select_dtypes(
-    include=["int64", "float64"]
-).columns
-
-infinite_values = (
-    df[numeric_columns]
-    .isin([float("inf"), float("-inf")])
-    .sum()
-    .sum()
-)
-
-print(f"Total infinite values: {infinite_values}")
-
-
-# ------------------------------------------------------------
-# 6. Encode Protocol
-# ------------------------------------------------------------
-
-print("\n" + "=" * 70)
-print("ENCODING PROTOCOL")
-print("=" * 70)
-
-print("Original Protocol values:")
-print(df["Protocol"].value_counts())
-
-# Explicit mapping
-protocol_mapping = {
-    "ICMP": 0,
-    "TCP": 1,
-    "UDP": 2
-}
-
-df["Protocol"] = df["Protocol"].map(protocol_mapping)
-
-print("\nEncoded Protocol values:")
-print(df["Protocol"].value_counts())
-
-
-# ------------------------------------------------------------
-# 7. Separate features and target
-# ------------------------------------------------------------
-
-X = df[FEATURE_COLUMNS].copy()
-y = df[TARGET_COLUMN].copy()
-
-
-# ------------------------------------------------------------
-# 8. Train / Validation / Test split
-# ------------------------------------------------------------
-
-print("\n" + "=" * 70)
-print("CREATING TRAIN / VALIDATION / TEST SPLITS")
-print("=" * 70)
-
-# First split:
-# 70% Training
-# 30% Temporary
-
-X_train, X_temp, y_train, y_temp = train_test_split(
-    X,
-    y,
-    test_size=0.30,
-    stratify=y,
-    random_state=42
-)
-
-# Second split:
-# 15% Validation
-# 15% Test
-
-X_val, X_test, y_val, y_test = train_test_split(
-    X_temp,
-    y_temp,
-    test_size=0.50,
-    stratify=y_temp,
-    random_state=42
-)
-
-print(f"Training   : {X_train.shape}")
-print(f"Validation : {X_val.shape}")
-print(f"Test       : {X_test.shape}")
-
-
-# ------------------------------------------------------------
-# 9. Check label distribution
-# ------------------------------------------------------------
-
-print("\n" + "=" * 70)
-print("LABEL DISTRIBUTION AFTER SPLITTING")
-print("=" * 70)
-
-print("\nTraining:")
-print(y_train.value_counts(normalize=True).mul(100).round(2))
-
-print("\nValidation:")
-print(y_val.value_counts(normalize=True).mul(100).round(2))
-
-print("\nTest:")
-print(y_test.value_counts(normalize=True).mul(100).round(2))
-
-
-# ------------------------------------------------------------
-# 10. Feature scaling
-# ------------------------------------------------------------
-
-print("\n" + "=" * 70)
-print("FEATURE SCALING")
-print("=" * 70)
-
-scaler = StandardScaler()
-
-# IMPORTANT:
-# Fit ONLY on training data
-X_train_scaled = scaler.fit_transform(X_train)
-
-# Apply the same scaler to validation and test
-X_val_scaled = scaler.transform(X_val)
-X_test_scaled = scaler.transform(X_test)
-
-print("StandardScaler fitted on training data only.")
-
-print(f"\nScaled training shape   : {X_train_scaled.shape}")
-print(f"Scaled validation shape : {X_val_scaled.shape}")
-print(f"Scaled test shape       : {X_test_scaled.shape}")
-
-
-# ------------------------------------------------------------
-# 11. Convert scaled arrays back to DataFrames
-# ------------------------------------------------------------
-
-X_train_scaled = pd.DataFrame(
-    X_train_scaled,
-    columns=FEATURE_COLUMNS
-)
-
-X_val_scaled = pd.DataFrame(
-    X_val_scaled,
-    columns=FEATURE_COLUMNS
-)
-
-X_test_scaled = pd.DataFrame(
-    X_test_scaled,
-    columns=FEATURE_COLUMNS
-)
-
-# Add target column
-X_train_scaled[TARGET_COLUMN] = y_train.reset_index(drop=True)
-X_val_scaled[TARGET_COLUMN] = y_val.reset_index(drop=True)
-X_test_scaled[TARGET_COLUMN] = y_test.reset_index(drop=True)
-
-
-# ------------------------------------------------------------
-# 12. Save processed datasets
-# ------------------------------------------------------------
-
-print("\n" + "=" * 70)
-print("SAVING PROCESSED DATA")
-print("=" * 70)
-
-train_path = os.path.join(
-    PROCESSED_DIR,
-    "train.csv"
-)
-
-val_path = os.path.join(
-    PROCESSED_DIR,
-    "validation.csv"
-)
-
-test_path = os.path.join(
-    PROCESSED_DIR,
-    "test.csv"
-)
-
-X_train_scaled.to_csv(train_path, index=False)
-X_val_scaled.to_csv(val_path, index=False)
-X_test_scaled.to_csv(test_path, index=False)
-
-print(f"Training data   → {train_path}")
-print(f"Validation data → {val_path}")
-print(f"Test data       → {test_path}")
-
-
-# ------------------------------------------------------------
-# 13. Final verification
-# ------------------------------------------------------------
-
-print("\n" + "=" * 70)
-print("FINAL VERIFICATION")
-print("=" * 70)
-
-print(f"Training rows   : {len(X_train_scaled):,}")
-print(f"Validation rows : {len(X_val_scaled):,}")
-print(f"Test rows       : {len(X_test_scaled):,}")
-
-print(f"\nNumber of input features: {len(FEATURE_COLUMNS)}")
-
-print("\nTraining sample:")
-print(X_train_scaled.head())
-
-print("\nMissing values:")
-print(
-    "Train:",
-    X_train_scaled.isnull().sum().sum()
-)
-
-print(
-    "Validation:",
-    X_val_scaled.isnull().sum().sum()
-)
-
-print(
-    "Test:",
-    X_test_scaled.isnull().sum().sum()
-)
-
-print("\n" + "=" * 70)
-print("DATASET 1 PREPROCESSING COMPLETE")
-print("=" * 70)
+    missing_columns = [
+        col for col in required_columns
+        if col not in df.columns
+    ]
+
+    if missing_columns:
+        raise ValueError(
+            f"Missing required columns: {missing_columns}"
+        )
+
+    # --------------------------------------------------------
+    # 4. REMOVE EXACT DUPLICATES
+    # --------------------------------------------------------
+
+    duplicate_count = df.duplicated().sum()
+
+    print("\nExact duplicate rows:", duplicate_count)
+
+    if duplicate_count > 0:
+        df = df.drop_duplicates().reset_index(drop=True)
+
+    print(
+        "Shape after duplicate removal:",
+        df.shape
+    )
+
+    # --------------------------------------------------------
+    # 5. CHECK LABELS
+    # --------------------------------------------------------
+
+    print("\nLabel distribution after duplicate removal:")
+
+    print(df["label"].value_counts())
+
+    print(
+        df["label"].value_counts(normalize=True)
+    )
+
+    # Ensure labels are integer 0/1
+    df["label"] = df["label"].astype(int)
+
+    unique_labels = sorted(df["label"].unique())
+
+    if unique_labels != [0, 1]:
+        raise ValueError(
+            f"Unexpected labels found: {unique_labels}"
+        )
+
+    # --------------------------------------------------------
+    # 6. HANDLE PROTOCOL
+    # --------------------------------------------------------
+
+    print("\nProtocol values before encoding:")
+
+    print(df["Protocol"].value_counts())
+
+    protocol_mapping = {
+        "ICMP": 0,
+        "TCP": 1,
+        "UDP": 2
+    }
+
+    df["Protocol"] = df["Protocol"].map(protocol_mapping)
+
+    if df["Protocol"].isna().any():
+
+        unknown_protocols = df.loc[
+            df["Protocol"].isna(),
+            "Protocol"
+        ]
+
+        raise ValueError(
+            "Unknown protocol values found."
+        )
+
+    print("\nProtocol encoded as:")
+    print(protocol_mapping)
+
+    # --------------------------------------------------------
+    # 7. HANDLE MISSING VALUES
+    # --------------------------------------------------------
+
+    print("\nMissing values before handling:")
+
+    missing_before = df.isna().sum()
+
+    print(
+        missing_before[
+            missing_before > 0
+        ]
+    )
+
+    # Numeric columns that will be used as model features
+    numeric_features = [
+        "switch",
+        "pktcount",
+        "bytecount",
+        "dur",
+        "dur_nsec",
+        "tot_dur",
+        "flows",
+        "packetins",
+        "pktperflow",
+        "byteperflow",
+        "pktrate",
+        "Pairflow",
+        "port_no",
+        "tx_bytes",
+        "rx_bytes",
+        "tx_kbps",
+        "rx_kbps",
+        "tot_kbps",
+        "Protocol"
+    ]
+
+    # Use median imputation for missing numerical values.
+    # IMPORTANT:
+    # The median will later be calculated from TRAINING data
+    # only to avoid data leakage.
+    
+    # --------------------------------------------------------
+    # 8. KEEP DT FOR TEMPORAL INFORMATION
+    # --------------------------------------------------------
+
+    # We don't use dt directly as a neural-network feature.
+    # It will be preserved in the processed files so that
+    # LSTM/GRU sequences can be constructed later.
+
+    dt_column = df["dt"].copy()
+
+    # --------------------------------------------------------
+    # 9. REMOVE RAW IP ADDRESSES
+    # --------------------------------------------------------
+
+    # Raw source/destination IPs are excluded because the
+    # model should learn traffic behavior rather than memorize
+    # specific IP addresses.
+
+    df = df.drop(
+        columns=["src", "dst"]
+    )
+
+    # --------------------------------------------------------
+    # 10. SELECT MODEL FEATURES
+    # --------------------------------------------------------
+
+    feature_columns = [
+        "switch",
+        "pktcount",
+        "bytecount",
+        "dur",
+        "dur_nsec",
+        "tot_dur",
+        "flows",
+        "packetins",
+        "pktperflow",
+        "byteperflow",
+        "pktrate",
+        "Pairflow",
+        "Protocol",
+        "port_no",
+        "tx_bytes",
+        "rx_bytes",
+        "tx_kbps",
+        "rx_kbps",
+        "tot_kbps"
+    ]
+
+    target_column = "label"
+
+    # --------------------------------------------------------
+    # 11. TEMPORARY DATAFRAME FOR SPLITTING
+    # --------------------------------------------------------
+
+    model_df = df[
+        feature_columns + [target_column]
+    ].copy()
+
+    print("\nModel input features:")
+    print(feature_columns)
+
+    print(
+        f"\nNumber of model features: "
+        f"{len(feature_columns)}"
+    )
+
+    # --------------------------------------------------------
+    # 12. TRAIN / VALIDATION / TEST SPLIT
+    # --------------------------------------------------------
+
+    print("\nCreating train/validation/test split...")
+
+    train_df, temp_df = train_test_split(
+        model_df,
+        test_size=0.30,
+        stratify=model_df[target_column],
+        random_state=RANDOM_SEED
+    )
+
+    validation_df, test_df = train_test_split(
+        temp_df,
+        test_size=0.50,
+        stratify=temp_df[target_column],
+        random_state=RANDOM_SEED
+    )
+
+    print("\nSplit sizes:")
+
+    print(f"Training   : {len(train_df):,}")
+    print(f"Validation : {len(validation_df):,}")
+    print(f"Test       : {len(test_df):,}")
+
+    # --------------------------------------------------------
+    # 13. MEDIAN IMPUTATION
+    # --------------------------------------------------------
+
+    print("\nHandling missing values...")
+
+    # Calculate medians ONLY from training data.
+    # This prevents validation/test information from
+    # influencing preprocessing.
+
+    train_medians = train_df[
+        feature_columns
+    ].median()
+
+    train_df[feature_columns] = (
+        train_df[feature_columns]
+        .fillna(train_medians)
+    )
+
+    validation_df[feature_columns] = (
+        validation_df[feature_columns]
+        .fillna(train_medians)
+    )
+
+    test_df[feature_columns] = (
+        test_df[feature_columns]
+        .fillna(train_medians)
+    )
+
+    # --------------------------------------------------------
+    # 14. CHECK INFINITE VALUES
+    # --------------------------------------------------------
+
+    for name, dataset in [
+        ("Training", train_df),
+        ("Validation", validation_df),
+        ("Test", test_df)
+    ]:
+
+        numeric_data = dataset[
+            feature_columns
+        ].select_dtypes(include=np.number)
+
+        if np.isinf(numeric_data).any().any():
+
+            raise ValueError(
+                f"Infinite values found in {name} dataset."
+            )
+
+    # --------------------------------------------------------
+    # 15. STANDARDIZATION
+    # --------------------------------------------------------
+
+    print("\nStandardizing numerical features...")
+
+    scaler = StandardScaler()
+
+    train_df[feature_columns] = scaler.fit_transform(
+        train_df[feature_columns]
+    )
+
+    validation_df[feature_columns] = scaler.transform(
+        validation_df[feature_columns]
+    )
+
+    test_df[feature_columns] = scaler.transform(
+        test_df[feature_columns]
+    )
+
+    # --------------------------------------------------------
+    # 16. RESTORE DT
+    # --------------------------------------------------------
+
+    # For now, dt is kept separately for future temporal
+    # sequence construction.
+    #
+    # We don't include it in the model feature matrix.
+
+    # Since the train/validation/test split shuffled rows,
+    # we need to preserve dt corresponding to each split.
+    #
+    # Re-create the split indices using the original model_df.
+
+    train_indices, temp_indices = train_test_split(
+        model_df.index,
+        test_size=0.30,
+        stratify=model_df[target_column],
+        random_state=RANDOM_SEED
+    )
+
+    val_indices, test_indices = train_test_split(
+        temp_indices,
+        test_size=0.50,
+        stratify=model_df.loc[
+            temp_indices,
+            target_column
+        ],
+        random_state=RANDOM_SEED
+    )
+
+    train_dt = dt_column.loc[train_indices].values
+    validation_dt = dt_column.loc[val_indices].values
+    test_dt = dt_column.loc[test_indices].values
+
+    train_df.insert(
+        0,
+        "dt",
+        train_dt
+    )
+
+    validation_df.insert(
+        0,
+        "dt",
+        validation_dt
+    )
+
+    test_df.insert(
+        0,
+        "dt",
+        test_dt
+    )
+
+    # --------------------------------------------------------
+    # 17. SORT TEMPORALLY
+    # --------------------------------------------------------
+
+    train_df = train_df.sort_values(
+        "dt"
+    ).reset_index(drop=True)
+
+    validation_df = validation_df.sort_values(
+        "dt"
+    ).reset_index(drop=True)
+
+    test_df = test_df.sort_values(
+        "dt"
+    ).reset_index(drop=True)
+
+    # --------------------------------------------------------
+    # 18. CREATE OUTPUT DIRECTORY
+    # --------------------------------------------------------
+
+    os.makedirs(
+        OUTPUT_DIR,
+        exist_ok=True
+    )
+
+    # --------------------------------------------------------
+    # 19. SAVE PROCESSED DATA
+    # --------------------------------------------------------
+
+    train_df.to_csv(
+        TRAIN_PATH,
+        index=False
+    )
+
+    validation_df.to_csv(
+        VAL_PATH,
+        index=False
+    )
+
+    test_df.to_csv(
+        TEST_PATH,
+        index=False
+    )
+
+    # --------------------------------------------------------
+    # 20. FINAL VALIDATION
+    # --------------------------------------------------------
+
+    print("\n" + "=" * 70)
+    print("FINAL DATASET CHECK")
+    print("=" * 70)
+
+    for name, dataset in [
+        ("TRAIN", train_df),
+        ("VALIDATION", validation_df),
+        ("TEST", test_df)
+    ]:
+
+        print(f"\n{name}")
+
+        print(
+            "Shape:",
+            dataset.shape
+        )
+
+        print(
+            "Missing values:",
+            dataset.isna().sum().sum()
+        )
+
+        numeric_data = dataset[
+            feature_columns
+        ].select_dtypes(include=np.number)
+
+        print(
+            "Infinite values:",
+            np.isinf(numeric_data).sum().sum()
+        )
+
+        print(
+            "Label distribution:"
+        )
+
+        print(
+            dataset["label"].value_counts(
+                normalize=True
+            ).sort_index()
+        )
+
+    # --------------------------------------------------------
+    # 21. OUTPUT INFORMATION
+    # --------------------------------------------------------
+
+    print("\n" + "=" * 70)
+    print("PREPROCESSING COMPLETED")
+    print("=" * 70)
+
+    print("\nSaved files:")
+
+    print(TRAIN_PATH)
+    print(VAL_PATH)
+    print(TEST_PATH)
+
+    print("\nFinal model features:")
+
+    for i, feature in enumerate(
+        feature_columns,
+        start=1
+    ):
+        print(f"{i:2}. {feature}")
+
+    print("\nDT is preserved for future LSTM/GRU sequence construction.")
+
+
+# ============================================================
+# RUN
+# ============================================================
+
+if __name__ == "__main__":
+    preprocess_dataset1()

@@ -1,0 +1,42 @@
+{
+    "dataset": "Dataset 1",
+    "task": "Binary DDoS Detection",
+    "model": "DNN",
+    "input_features": [
+        "switch",
+        "pktcount",
+        "bytecount",
+        "dur",
+        "dur_nsec",
+        "tot_dur",
+        "flows",
+        "packetins",
+        "pktperflow",
+        "byteperflow",
+        "pktrate",
+        "Pairflow",
+        "Protocol",
+        "port_no",
+        "tx_bytes",
+        "rx_bytes",
+        "tx_kbps",
+        "rx_kbps",
+        "tot_kbps"
+    ],
+    "num_input_features": 19,
+    "accuracy": 0.9919403586540398,
+    "precision": 0.9857267188859878,
+    "recall": 0.9933345027188213,
+    "f1_score": 0.9895159881181199,
+    "false_positive_rate": 0.00892468437091859,
+    "confusion_matrix": [
+        [
+            9106,
+            82
+        ],
+        [
+            38,
+            5663
+        ]
+    ]
+}

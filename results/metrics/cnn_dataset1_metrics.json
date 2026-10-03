@@ -1,0 +1,40 @@
+{
+    "dataset": "Dataset 1",
+    "model": "1D-CNN",
+    "accuracy": 0.9897239572839008,
+    "precision": 0.9826026443980515,
+    "recall": 0.9907033853709876,
+    "f1_score": 0.9866363874574199,
+    "false_positive_rate": 0.0108837614279495,
+    "confusion_matrix": [
+        [
+            9088,
+            100
+        ],
+        [
+            53,
+            5648
+        ]
+    ],
+    "features": [
+        "switch",
+        "pktcount",
+        "bytecount",
+        "dur",
+        "dur_nsec",
+        "tot_dur",
+        "flows",
+        "packetins",
+        "pktperflow",
+        "byteperflow",
+        "pktrate",
+        "Pairflow",
+        "Protocol",
+        "port_no",
+        "tx_bytes",
+        "rx_bytes",
+        "tx_kbps",
+        "rx_kbps",
+        "tot_kbps"
+    ]
+}

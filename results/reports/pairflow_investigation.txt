@@ -1,0 +1,52 @@
+PAIRFLOW INVESTIGATION - DATASET 1
+======================================================================
+
+Raw shape: (99254, 23)
+Duplicates removed: 5091
+
+Overall statistics:
+count    99254.000000
+mean         0.631813
+std          0.482315
+min          0.000000
+25%          0.000000
+50%          1.000000
+75%          1.000000
+max          1.000000
+
+Statistics by label:
+       count      mean       std  min  max  nunique
+label                                              
+0      61248  0.643694  0.478911    0    1        2
+1      38006  0.612666  0.487147    0    1        2
+
+
+TRAIN
+----------------------------------------
+Rows: 74396
+dt range: 2488 -> 30252
+Mean: 0.5087907952040432
+Std: 0.49992607585703785
+Min: 0
+Max: 1
+Unique values: 2
+
+VALIDATION
+----------------------------------------
+Rows: 13770
+dt range: 30282 -> 32643
+Mean: 1.0
+Std: 0.0
+Min: 1
+Max: 1
+Unique values: 1
+
+TEST
+----------------------------------------
+Rows: 11088
+dt range: 32673 -> 42935
+Mean: 1.0
+Std: 0.0
+Min: 1
+Max: 1
+Unique values: 1

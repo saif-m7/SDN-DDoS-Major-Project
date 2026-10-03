@@ -13,8 +13,7 @@ data/raw/
 data/processed/
 data/splits/
 
-# Trained models
-results/models/
+
 
 # Logs
 logs/
