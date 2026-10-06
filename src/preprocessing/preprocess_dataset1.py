@@ -1,4 +1,5 @@
 import os
+import joblib
 import pandas as pd
 import numpy as np
 
@@ -18,6 +19,19 @@ OUTPUT_DIR = "data/processed/dataset1"
 TRAIN_PATH = os.path.join(OUTPUT_DIR, "train.csv")
 VAL_PATH = os.path.join(OUTPUT_DIR, "validation.csv")
 TEST_PATH = os.path.join(OUTPUT_DIR, "test.csv")
+
+# Preprocessing artifacts
+ARTIFACT_DIR = "results/preprocessing"
+
+MEDIANS_PATH = os.path.join(
+    ARTIFACT_DIR,
+    "dataset1_medians.pkl"
+)
+
+SCALER_PATH = os.path.join(
+    ARTIFACT_DIR,
+    "dataset1_scaler.pkl"
+)
 
 
 # ============================================================
@@ -147,11 +161,6 @@ def preprocess_dataset1():
 
     if df["Protocol"].isna().any():
 
-        unknown_protocols = df.loc[
-            df["Protocol"].isna(),
-            "Protocol"
-        ]
-
         raise ValueError(
             "Unknown protocol values found."
         )
@@ -173,7 +182,7 @@ def preprocess_dataset1():
         ]
     )
 
-    # Numeric columns that will be used as model features
+    # Numeric columns used as model features
     numeric_features = [
         "switch",
         "pktcount",
@@ -196,28 +205,18 @@ def preprocess_dataset1():
         "Protocol"
     ]
 
-    # Use median imputation for missing numerical values.
-    # IMPORTANT:
-    # The median will later be calculated from TRAINING data
-    # only to avoid data leakage.
-    
     # --------------------------------------------------------
     # 8. KEEP DT FOR TEMPORAL INFORMATION
     # --------------------------------------------------------
 
-    # We don't use dt directly as a neural-network feature.
-    # It will be preserved in the processed files so that
-    # LSTM/GRU sequences can be constructed later.
+    # dt is not used directly as a neural-network feature.
+    # It is preserved for temporal sequence construction.
 
     dt_column = df["dt"].copy()
 
     # --------------------------------------------------------
     # 9. REMOVE RAW IP ADDRESSES
     # --------------------------------------------------------
-
-    # Raw source/destination IPs are excluded because the
-    # model should learn traffic behavior rather than memorize
-    # specific IP addresses.
 
     df = df.drop(
         columns=["src", "dst"]
@@ -300,8 +299,7 @@ def preprocess_dataset1():
     print("\nHandling missing values...")
 
     # Calculate medians ONLY from training data.
-    # This prevents validation/test information from
-    # influencing preprocessing.
+    # This prevents data leakage.
 
     train_medians = train_df[
         feature_columns
@@ -363,17 +361,38 @@ def preprocess_dataset1():
     )
 
     # --------------------------------------------------------
-    # 16. RESTORE DT
+    # 16. SAVE PREPROCESSING ARTIFACTS
     # --------------------------------------------------------
 
-    # For now, dt is kept separately for future temporal
-    # sequence construction.
-    #
-    # We don't include it in the model feature matrix.
+    print("\nSaving preprocessing artifacts...")
 
-    # Since the train/validation/test split shuffled rows,
-    # we need to preserve dt corresponding to each split.
-    #
+    os.makedirs(
+        ARTIFACT_DIR,
+        exist_ok=True
+    )
+
+    # Save training medians
+    joblib.dump(
+        train_medians,
+        MEDIANS_PATH
+    )
+
+    # Save fitted StandardScaler
+    joblib.dump(
+        scaler,
+        SCALER_PATH
+    )
+
+    print("Saved median values:")
+    print(MEDIANS_PATH)
+
+    print("\nSaved StandardScaler:")
+    print(SCALER_PATH)
+
+    # --------------------------------------------------------
+    # 17. RESTORE DT
+    # --------------------------------------------------------
+
     # Re-create the split indices using the original model_df.
 
     train_indices, temp_indices = train_test_split(
@@ -416,7 +435,7 @@ def preprocess_dataset1():
     )
 
     # --------------------------------------------------------
-    # 17. SORT TEMPORALLY
+    # 18. SORT TEMPORALLY
     # --------------------------------------------------------
 
     train_df = train_df.sort_values(
@@ -432,7 +451,7 @@ def preprocess_dataset1():
     ).reset_index(drop=True)
 
     # --------------------------------------------------------
-    # 18. CREATE OUTPUT DIRECTORY
+    # 19. CREATE OUTPUT DIRECTORY
     # --------------------------------------------------------
 
     os.makedirs(
@@ -441,7 +460,7 @@ def preprocess_dataset1():
     )
 
     # --------------------------------------------------------
-    # 19. SAVE PROCESSED DATA
+    # 20. SAVE PROCESSED DATA
     # --------------------------------------------------------
 
     train_df.to_csv(
@@ -460,7 +479,7 @@ def preprocess_dataset1():
     )
 
     # --------------------------------------------------------
-    # 20. FINAL VALIDATION
+    # 21. FINAL VALIDATION
     # --------------------------------------------------------
 
     print("\n" + "=" * 70)
@@ -505,18 +524,23 @@ def preprocess_dataset1():
         )
 
     # --------------------------------------------------------
-    # 21. OUTPUT INFORMATION
+    # 22. OUTPUT INFORMATION
     # --------------------------------------------------------
 
     print("\n" + "=" * 70)
     print("PREPROCESSING COMPLETED")
     print("=" * 70)
 
-    print("\nSaved files:")
+    print("\nSaved processed files:")
 
     print(TRAIN_PATH)
     print(VAL_PATH)
     print(TEST_PATH)
+
+    print("\nSaved preprocessing artifacts:")
+
+    print(MEDIANS_PATH)
+    print(SCALER_PATH)
 
     print("\nFinal model features:")
 
@@ -526,7 +550,10 @@ def preprocess_dataset1():
     ):
         print(f"{i:2}. {feature}")
 
-    print("\nDT is preserved for future LSTM/GRU sequence construction.")
+    print(
+        "\nDT is preserved for future temporal "
+        "sequence construction."
+    )
 
 
 # ============================================================

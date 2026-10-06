@@ -1,0 +1,130 @@
+{
+    "dataset": "D2",
+    "model": "DNN",
+    "total_records": 180000,
+    "classification_accuracy": 1.0,
+    "normal_records": 90000,
+    "malicious_records": 90000,
+    "ddos_icmp": 30000,
+    "ddos_tcp": 30000,
+    "ddos_udp": 30000,
+    "mitigation_required": 90000,
+    "mitigation_rate_percent": 50.0,
+    "mitigation_actions": {
+        "DDOS_ICMP": "BLOCK_ICMP",
+        "DDOS_TCP": "BLOCK_TCP",
+        "DDOS_UDP": "BLOCK_UDP",
+        "NORMAL_ICMP": "ALLOW_ICMP",
+        "NORMAL_TCP": "ALLOW_TCP",
+        "NORMAL_UDP": "ALLOW_UDP"
+    },
+    "classification_report": {
+        "DDOS_ICMP": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 30000.0
+        },
+        "DDOS_TCP": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 30000.0
+        },
+        "DDOS_UDP": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 30000.0
+        },
+        "NORMAL_ICMP": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 30000.0
+        },
+        "NORMAL_TCP": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 30000.0
+        },
+        "NORMAL_UDP": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 30000.0
+        },
+        "accuracy": 1.0,
+        "macro avg": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 180000.0
+        },
+        "weighted avg": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 180000.0
+        }
+    },
+    "confusion_matrix": [
+        [
+            30000,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            30000,
+            0,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            30000,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            30000,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            0,
+            30000,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            0,
+            0,
+            30000
+        ]
+    ],
+    "class_order": [
+        "DDOS_ICMP",
+        "DDOS_TCP",
+        "DDOS_UDP",
+        "NORMAL_ICMP",
+        "NORMAL_TCP",
+        "NORMAL_UDP"
+    ]
+}

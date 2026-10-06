@@ -27,3 +27,9 @@ Thumbs.db
 
 # Environment variables
 .env
+
+
+
+# React / Node
+frontend/node_modules/
+frontend/dist/

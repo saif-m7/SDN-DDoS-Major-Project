@@ -1,0 +1,69 @@
+{
+    "dataset1": [
+        {
+            "Dataset": "Dataset 1",
+            "Model": "DNN",
+            "Accuracy": 0.9919403586540398,
+            "Precision": 0.9857267188859878,
+            "Recall": 0.9933345027188213,
+            "F1-score": 0.9895159881181199,
+            "FPR": 0.00892468437091859
+        },
+        {
+            "Dataset": "Dataset 1",
+            "Model": "CNN",
+            "Accuracy": 0.9897239572839008,
+            "Precision": 0.9826026443980515,
+            "Recall": 0.9907033853709876,
+            "F1-score": 0.9866363874574199,
+            "FPR": 0.0108837614279495
+        },
+        {
+            "Dataset": "Dataset 1",
+            "Model": "LSTM",
+            "Accuracy": 0.9293915559171865,
+            "Precision": 0.8690275435637999,
+            "Recall": 0.9075432932198415,
+            "F1-score": 0.8878679109834888,
+            "FPR": 0.060883198327671806
+        },
+        {
+            "Dataset": "Dataset 1",
+            "Model": "TabNet",
+            "Accuracy": 0.9629928134864665,
+            "Precision": 0.9385217983651226,
+            "Recall": 0.9666725135941063,
+            "F1-score": 0.9523891817160632,
+            "FPR": 0.039290378754897694
+        }
+    ],
+    "dataset2": [
+        {
+            "Dataset": "Dataset 2",
+            "Model": "DNN",
+            "Accuracy": 1.0,
+            "Precision": 1.0,
+            "Recall": 1.0,
+            "F1-score": 1.0,
+            "FPR": 0.0
+        },
+        {
+            "Dataset": "Dataset 2",
+            "Model": "CNN",
+            "Accuracy": 1.0,
+            "Precision": 1.0,
+            "Recall": 1.0,
+            "F1-score": 1.0,
+            "FPR": 0.0
+        },
+        {
+            "Dataset": "Dataset 2",
+            "Model": "TabNet",
+            "Accuracy": 1.0,
+            "Precision": 1.0,
+            "Recall": 1.0,
+            "F1-score": 1.0,
+            "FPR": 0.0
+        }
+    ]
+}

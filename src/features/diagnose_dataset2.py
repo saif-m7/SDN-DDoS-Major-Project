@@ -7,7 +7,7 @@ import numpy as np
 # CONFIGURATION
 # ============================================================
 
-BASE_DIR = r"C:\PROJECTS\SDN-DDOS-Major-Project"
+BASE_DIR = "/mnt/c/PROJECTS/SDN-DDOS-Major-Project"
 
 DATASET2_DIR = os.path.join(
     BASE_DIR,

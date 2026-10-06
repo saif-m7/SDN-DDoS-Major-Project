@@ -1,4 +1,5 @@
 import os
+import joblib
 import pandas as pd
 
 from sklearn.model_selection import train_test_split
@@ -26,6 +27,11 @@ TEST_DATA_PATH = (
 PROCESSED_DIR = (
     r"C:\PROJECTS\SDN-DDOS-Major-Project"
     r"\data\processed\dataset2"
+)
+
+SCALER_PATH = (
+    r"C:\PROJECTS\SDN-DDOS-Major-Project"
+    r"\results\preprocessing\dataset2_scaler.pkl"
 )
 
 os.makedirs(PROCESSED_DIR, exist_ok=True)
@@ -213,6 +219,14 @@ scaler = StandardScaler()
 
 # Fit ONLY on training data
 X_train_scaled = scaler.fit_transform(X_train)
+
+# Save fitted scaler for real-time inference
+joblib.dump(
+    scaler,
+    SCALER_PATH
+)
+
+print(f"Scaler saved → {SCALER_PATH}")
 
 # Apply the same scaler to validation and test
 X_val_scaled = scaler.transform(X_val)
