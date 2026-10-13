@@ -1,0 +1,49 @@
+{
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1_score": 1.0,
+    "false_positive_rate": 0.0,
+    "dataset": "dataset1",
+    "model": "Random Forest",
+    "task": "Binary DDoS Detection",
+    "input_features": [
+        "switch",
+        "pktcount",
+        "bytecount",
+        "dur",
+        "dur_nsec",
+        "tot_dur",
+        "flows",
+        "packetins",
+        "pktperflow",
+        "byteperflow",
+        "pktrate",
+        "Pairflow",
+        "Protocol",
+        "port_no",
+        "tx_bytes",
+        "rx_bytes",
+        "tx_kbps",
+        "rx_kbps",
+        "tot_kbps"
+    ],
+    "num_input_features": 19,
+    "accuracy": 1.0,
+    "validation_accuracy": 1.0,
+    "training_time_seconds": 2.244907299987972,
+    "test_inference_time_seconds": 0.09177930001169443,
+    "class_names": [
+        "0",
+        "1"
+    ],
+    "confusion_matrix": [
+        [
+            9188,
+            0
+        ],
+        [
+            0,
+            5701
+        ]
+    ]
+}

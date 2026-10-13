@@ -1,0 +1,7 @@
+,predicted_DDOS_ICMP,predicted_DDOS_TCP,predicted_DDOS_UDP,predicted_NORMAL_ICMP,predicted_NORMAL_TCP,predicted_NORMAL_UDP
+actual_DDOS_ICMP,30000,0,0,0,0,0
+actual_DDOS_TCP,0,30000,0,0,0,0
+actual_DDOS_UDP,0,0,30000,0,0,0
+actual_NORMAL_ICMP,0,0,0,30000,0,0
+actual_NORMAL_TCP,0,0,0,0,30000,0
+actual_NORMAL_UDP,0,0,0,0,0,30000

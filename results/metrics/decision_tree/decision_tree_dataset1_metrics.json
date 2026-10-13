@@ -1,0 +1,59 @@
+{
+  "dataset": "dataset1",
+  "model": "Decision Tree",
+  "task": "Binary DDoS Detection",
+  "input_features": [
+    "switch",
+    "pktcount",
+    "bytecount",
+    "dur",
+    "dur_nsec",
+    "tot_dur",
+    "flows",
+    "packetins",
+    "pktperflow",
+    "byteperflow",
+    "pktrate",
+    "Pairflow",
+    "Protocol",
+    "port_no",
+    "tx_bytes",
+    "rx_bytes",
+    "tx_kbps",
+    "rx_kbps",
+    "tot_kbps"
+  ],
+  "num_input_features": 19,
+  "accuracy": 1.0,
+  "validation_accuracy": 0.9999328318108544,
+  "precision_weighted": 1.0,
+  "recall_weighted": 1.0,
+  "f1_score_weighted": 1.0,
+  "false_positive_rate_macro": 0.0,
+  "false_positive_rate_per_class": {
+    "0": 0.0,
+    "1": 0.0
+  },
+  "training_time_seconds": 0.2932240000227466,
+  "test_inference_time_seconds": 0.057027000002563,
+  "class_names": [
+    "0",
+    "1"
+  ],
+  "confusion_matrix": [
+    [
+      9188,
+      0
+    ],
+    [
+      0,
+      5701
+    ]
+  ],
+  "tree_depth": 16,
+  "number_of_leaves": 85,
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1_score": 1.0,
+  "false_positive_rate": 0.0
+}

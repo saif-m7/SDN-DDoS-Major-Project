@@ -1,0 +1,51 @@
+{
+    "algorithm": "Extra Trees Classifier",
+    "dataset": "dataset1",
+    "test_accuracy": 0.999059708509638,
+    "validation_accuracy": 0.9990596453519613,
+    "weighted_precision": 0.9990598092017743,
+    "weighted_recall": 0.999059708509638,
+    "weighted_f1_score": 0.9990597397873058,
+    "training_time_seconds": 1.2344524000072852,
+    "test_inference_time_seconds": 0.09271869994699955,
+    "test_samples": 14889,
+    "input_features": [
+        "switch",
+        "pktcount",
+        "bytecount",
+        "dur",
+        "dur_nsec",
+        "tot_dur",
+        "flows",
+        "packetins",
+        "pktperflow",
+        "byteperflow",
+        "pktrate",
+        "Pairflow",
+        "Protocol",
+        "port_no",
+        "tx_bytes",
+        "rx_bytes",
+        "tx_kbps",
+        "rx_kbps",
+        "tot_kbps"
+    ],
+    "classes": [
+        "0",
+        "1"
+    ],
+    "false_positive_rate_per_class": {
+        "0": 0.0010524469391334855,
+        "1": 0.0008707009142359599
+    },
+    "confusion_matrix": [
+        [
+            9180,
+            8
+        ],
+        [
+            6,
+            5695
+        ]
+    ]
+}

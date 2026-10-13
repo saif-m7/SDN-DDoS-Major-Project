@@ -1,0 +1,54 @@
+{
+    "algorithm": "Logistic Regression",
+    "dataset": "dataset1",
+    "test_accuracy": 0.766203237289274,
+    "validation_accuracy": 0.7672622246104245,
+    "weighted_precision": 0.7635518585907602,
+    "weighted_recall": 0.766203237289274,
+    "weighted_f1_score": 0.7640569462863293,
+    "training_time_seconds": 0.10214219999033958,
+    "test_inference_time_seconds": 0.00042239995673298836,
+    "test_samples": 14889,
+    "input_features": [
+        "switch",
+        "pktcount",
+        "bytecount",
+        "dur",
+        "dur_nsec",
+        "tot_dur",
+        "flows",
+        "packetins",
+        "pktperflow",
+        "byteperflow",
+        "pktrate",
+        "Pairflow",
+        "Protocol",
+        "port_no",
+        "tx_bytes",
+        "rx_bytes",
+        "tx_kbps",
+        "rx_kbps",
+        "tot_kbps"
+    ],
+    "classes": [
+        "0",
+        "1"
+    ],
+    "false_positive_rate_per_class": {
+        "0": 0.34713208209086127,
+        "1": 0.1634740966478015
+    },
+    "confusion_matrix": [
+        [
+            7686,
+            1502
+        ],
+        [
+            1979,
+            3722
+        ]
+    ],
+    "iterations": [
+        22
+    ]
+}

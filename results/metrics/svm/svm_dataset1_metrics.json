@@ -1,0 +1,57 @@
+{
+  "dataset": "dataset1",
+  "model": "Linear SVM (LinearSVC)",
+  "task": "Binary DDoS Detection",
+  "input_features": [
+    "switch",
+    "pktcount",
+    "bytecount",
+    "dur",
+    "dur_nsec",
+    "tot_dur",
+    "flows",
+    "packetins",
+    "pktperflow",
+    "byteperflow",
+    "pktrate",
+    "Pairflow",
+    "Protocol",
+    "port_no",
+    "tx_bytes",
+    "rx_bytes",
+    "tx_kbps",
+    "rx_kbps",
+    "tot_kbps"
+  ],
+  "num_input_features": 19,
+  "accuracy": 0.7447780240445967,
+  "validation_accuracy": 0.7464400859752821,
+  "precision_weighted": 0.7408265393890822,
+  "recall_weighted": 0.7447780240445967,
+  "f1_score_weighted": 0.7408993276659225,
+  "false_positive_rate_macro": 0.2822487989298672,
+  "false_positive_rate_per_class": {
+    "0": 0.39764953516926854,
+    "1": 0.16684806269046581
+  },
+  "training_time_seconds": 0.7083544000051916,
+  "test_inference_time_seconds": 0.0009998000459745526,
+  "class_names": [
+    "0",
+    "1"
+  ],
+  "confusion_matrix": [
+    [
+      7655,
+      1533
+    ],
+    [
+      2267,
+      3434
+    ]
+  ],
+  "precision": 0.6913629957720958,
+  "recall": 0.6023504648307314,
+  "f1_score": 0.6437945256842894,
+  "false_positive_rate": 0.16684806269046581
+}

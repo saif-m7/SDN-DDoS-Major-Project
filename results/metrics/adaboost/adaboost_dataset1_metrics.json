@@ -1,0 +1,54 @@
+{
+    "algorithm": "AdaBoost",
+    "dataset": "dataset1",
+    "n_estimators": 100,
+    "learning_rate": 0.5,
+    "weak_learner_max_depth": 2,
+    "test_accuracy": 0.9901269393511989,
+    "validation_accuracy": 0.9894545943041375,
+    "weighted_precision": 0.9902073182677373,
+    "weighted_recall": 0.9901269393511989,
+    "weighted_f1_score": 0.9901392807815315,
+    "training_time_seconds": 10.35804379999172,
+    "test_inference_time_seconds": 0.07487899996340275,
+    "test_samples": 14889,
+    "input_features": [
+        "switch",
+        "pktcount",
+        "bytecount",
+        "dur",
+        "dur_nsec",
+        "tot_dur",
+        "flows",
+        "packetins",
+        "pktperflow",
+        "byteperflow",
+        "pktrate",
+        "Pairflow",
+        "Protocol",
+        "port_no",
+        "tx_bytes",
+        "rx_bytes",
+        "tx_kbps",
+        "rx_kbps",
+        "tot_kbps"
+    ],
+    "classes": [
+        "0",
+        "1"
+    ],
+    "false_positive_rate_per_class": {
+        "0": 0.006139273811611998,
+        "1": 0.012189812799303439
+    },
+    "confusion_matrix": [
+        [
+            9076,
+            112
+        ],
+        [
+            35,
+            5666
+        ]
+    ]
+}

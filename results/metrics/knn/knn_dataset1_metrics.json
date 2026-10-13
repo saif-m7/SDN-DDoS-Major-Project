@@ -1,0 +1,52 @@
+{
+    "algorithm": "K-Nearest Neighbors",
+    "dataset": "dataset1",
+    "n_neighbors": 5,
+    "test_accuracy": 0.9704479817314796,
+    "validation_accuracy": 0.9697743148844707,
+    "weighted_precision": 0.9704406835033881,
+    "weighted_recall": 0.9704479817314796,
+    "weighted_f1_score": 0.9704440370850047,
+    "training_time_seconds": 0.009047599975019693,
+    "test_inference_time_seconds": 1.2031073999824002,
+    "test_samples": 14889,
+    "input_features": [
+        "switch",
+        "pktcount",
+        "bytecount",
+        "dur",
+        "dur_nsec",
+        "tot_dur",
+        "flows",
+        "packetins",
+        "pktperflow",
+        "byteperflow",
+        "pktrate",
+        "Pairflow",
+        "Protocol",
+        "port_no",
+        "tx_bytes",
+        "rx_bytes",
+        "tx_kbps",
+        "rx_kbps",
+        "tot_kbps"
+    ],
+    "classes": [
+        "0",
+        "1"
+    ],
+    "false_positive_rate_per_class": {
+        "0": 0.03929135239431679,
+        "1": 0.023508924684370918
+    },
+    "confusion_matrix": [
+        [
+            8972,
+            216
+        ],
+        [
+            224,
+            5477
+        ]
+    ]
+}

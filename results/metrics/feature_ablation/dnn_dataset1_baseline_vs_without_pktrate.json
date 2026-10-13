@@ -1,0 +1,27 @@
+{
+    "baseline_metrics_file": "C:\\PROJECTS\\SDN-DDOS-Major-Project\\results\\metrics\\dnn_dataset1_metrics.json",
+    "feature_ablation_metrics_file": "C:\\PROJECTS\\SDN-DDOS-Major-Project\\results\\metrics\\feature_ablation\\dnn_dataset1_without_pktrate_metrics.json",
+    "baseline": {
+        "accuracy": 0.9919403586540398,
+        "precision": 0.9857267188859878,
+        "recall": 0.9933345027188213,
+        "f1_score": 0.9895159881181199,
+        "false_positive_rate": 0.00892468437091859,
+        "num_input_features": 19
+    },
+    "without_pktrate": {
+        "accuracy": 0.9916045402646249,
+        "precision": 0.9848695652173913,
+        "recall": 0.9933345027188213,
+        "f1_score": 0.989083922801502,
+        "false_positive_rate": 0.009468872442316064,
+        "num_input_features": 18
+    },
+    "change_without_pktrate_minus_baseline": {
+        "accuracy": -0.000335818389414988,
+        "precision": -0.0008571536685965109,
+        "recall": 0.0,
+        "f1_score": -0.00043206531661788006,
+        "false_positive_rate": 0.000544188071397474
+    }
+}
