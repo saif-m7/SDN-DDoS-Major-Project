@@ -1,0 +1,54 @@
+{
+    "dataset": "Dataset 1",
+    "preprocessing": "MinMaxScaler",
+    "feature_columns": [
+        "switch",
+        "pktcount",
+        "bytecount",
+        "dur",
+        "dur_nsec",
+        "tot_dur",
+        "flows",
+        "packetins",
+        "pktperflow",
+        "byteperflow",
+        "pktrate",
+        "Pairflow",
+        "Protocol",
+        "port_no",
+        "tx_bytes",
+        "rx_bytes",
+        "tx_kbps",
+        "rx_kbps",
+        "tot_kbps"
+    ],
+    "label_column": "label",
+    "timestamp_column": "dt",
+    "protocol_mapping": {
+        "ICMP": 0,
+        "TCP": 1,
+        "UDP": 2
+    },
+    "duplicate_rows_removed": 5091,
+    "random_state": 42,
+    "train_ratio": 0.7,
+    "validation_ratio": 0.15,
+    "test_ratio": 0.15,
+    "imputation": "Training-set feature medians",
+    "scaler_fit_on": "Training features only",
+    "training_rows": 69477,
+    "validation_rows": 14888,
+    "test_rows": 14889,
+    "training_label_distribution": {
+        "0": 42873,
+        "1": 26604
+    },
+    "validation_label_distribution": {
+        "0": 9187,
+        "1": 5701
+    },
+    "test_label_distribution": {
+        "0": 9188,
+        "1": 5701
+    }
+}

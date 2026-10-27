@@ -1,0 +1,70 @@
+{
+    "experiment": "Dataset 1 shifted log transformation",
+    "input_file": "C:\\PROJECTS\\SDN-DDOS-Major-Project\\data\\raw\\dataset1\\dataset_sdn.csv",
+    "transformation": "log1p(x + shift)",
+    "features": [
+        "switch",
+        "pktcount",
+        "bytecount",
+        "dur",
+        "dur_nsec",
+        "tot_dur",
+        "flows",
+        "packetins",
+        "pktperflow",
+        "byteperflow",
+        "pktrate",
+        "Pairflow",
+        "Protocol",
+        "port_no",
+        "tx_bytes",
+        "rx_bytes",
+        "tx_kbps",
+        "rx_kbps",
+        "tot_kbps"
+    ],
+    "label_column": "label",
+    "random_state": 42,
+    "split": {
+        "train": 69477,
+        "validation": 14888,
+        "test": 14889
+    },
+    "duplicate_rows_removed": 5091,
+    "imputation": "Training-set median per feature",
+    "protocol_mapping": {
+        "ICMP": 0,
+        "TCP": 1,
+        "UDP": 2
+    },
+    "feature_shifts": {
+        "switch": 0.0,
+        "pktcount": 0.0,
+        "bytecount": 0.0,
+        "dur": 0.0,
+        "dur_nsec": 0.0,
+        "tot_dur": 0.0,
+        "flows": 0.0,
+        "packetins": 0.0,
+        "pktperflow": 130933.0,
+        "byteperflow": 146442594.0,
+        "pktrate": 4365.0,
+        "Pairflow": 0.0,
+        "Protocol": 0.0,
+        "port_no": 0.0,
+        "tx_bytes": 0.0,
+        "rx_bytes": 0.0,
+        "tx_kbps": 0.0,
+        "rx_kbps": 0.0,
+        "tot_kbps": 0.0
+    },
+    "shift_method": "max(0, -minimum training value) per feature",
+    "notes": [
+        "Protocol is encoded before numeric feature conversion.",
+        "Feature columns are converted to float64 before transformation.",
+        "Shifts are calculated using training data only.",
+        "The same shifts are applied to validation and test data.",
+        "This is shifted log transformation, not plain log1p.",
+        "Verify split membership before comparing experiments."
+    ]
+}
