@@ -7,7 +7,7 @@ import numpy as np
 
 DATASET_PATH = (
     r"C:\PROJECTS\SDN-DDOS-Major-Project"
-    r"\data\raw\dataset1\SDN-DDoS_Traffic_Dataset.csv"
+    r"\data\raw\dataset1\dataset_sdn.csv"
 )
 
 # ------------------------------------------------------------
